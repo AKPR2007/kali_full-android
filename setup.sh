@@ -4,6 +4,13 @@ VERSION=2020011601
 BASE_URL=https://kali.download/nethunter-images/current/rootfs
 USERNAME=kali
 
+function prep_basics() {
+    printf "${blue}[*] Preparing for setup..."
+    yes | apt get update > /dev/null
+    yes | apt get upgrade > /dev/null
+    pkg install git wget -y > /dev/null
+}
+
 function unsupported_arch() {
     printf "${red}"
     echo "[*] Unsupported Architecture\n\n"
@@ -369,6 +376,7 @@ fi
 
 cd $HOME
 print_banner
+prep_basics
 get_arch
 set_strings
 prepare_fs
